@@ -4,6 +4,7 @@ import data_reader
 # 에포크는 시간을 재는 단위입니다.
 # AI에서는 학습을 몇 바퀴 돌릴 것인가를 결정합니다.
 # 몇 에포크 만큼 학습을 시킬 것인지 결정합니다.
+# 에포크를 높이면 성능은 올라가지만 시간은 그만큼 오래 걸린다.
 EPOCHS = 20  # 예제 기본값은 20으로 설정.
 
 # 데이터를 읽어옵니다.
@@ -14,8 +15,13 @@ model = keras.Sequential([
     keras.layers.Dense(3),  # 퍼셉트론 세 개짜리 한 층입니다.
     keras.layers.Dense(128, activation="relu"),  # 퍼셉트론 128개짜리 한 층입니다.
     # activation은 활성화 함수입니다.
+    #relu라는 활성화 함수를 사용한다.
     keras.layers.Dense(3, activation='softmax')  # 퍼셉트론 3개짜리 한 층입니다.
-])
+]) #총 3층짜리 신경망
+
+
+
+
 
 # 인공신경망을 컴파일합니다.
 # 모델을 압축하고 메모리에 올려서, 당장 컴퓨터가 사용할 수 있는 상태로 만듭니다.
@@ -46,7 +52,7 @@ history = model.fit(dr.train_X, dr.train_Y, epochs=EPOCHS,
 
                     # validation_data는 채점에 사용할 데이터입니다.
                     validation_data=(dr.test_X, dr.test_Y),
-                    # 학습이 완료된 것 같으면 조기 종료합니다.
+                    # 20 에포크전에 학습이 완료된 것 같으면 조기 종료합니다.
                     callbacks=[early_stop])
 
 # 학습 결과를 그래프로 출력합니다.
